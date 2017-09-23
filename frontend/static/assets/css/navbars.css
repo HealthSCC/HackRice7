@@ -1,0 +1,82 @@
+@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+
+/* BASIC THEME CONFIGURATION */
+
+body {
+    
+	margin: 6px;
+    font-family: 'Ruda', sans-serif;
+    font-size:14px;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.navbar>.container-fluid .navbar-brand {
+	margin-left: 0;
+}
+
+.container-fluid>.navbar-collapse{
+	margin-right: 2px;
+}
+
+.navbar-default .navbar-brand {
+	color: white;
+	padding: 27px 15px;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: black;
+}
+
+.navbar-default {
+    background-color: #ea0e0e;
+    border-color: #ea0e0e;
+    height: 75px;
+}
+
+
+
+img {
+	height: 70px;
+}
+
+.navbar-nav>li>a {
+	padding-top: 28px;
+}
+
+.navbar-nav>li>.dropdown-menu {
+	background-color: #ea0e0e;
+}
+
+.dropdown-menu>li>a {
+	color: white;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+	background-color: #ea0e0e;
+	color: white;
+}
+
+.btn{
+	margin-top: 21px;
+	margin-right: 3px;
+}
+
+.btn-danger{
+	background-color: #e89895;
+	border-color: #e89895;
+}
+
+
+
+
+

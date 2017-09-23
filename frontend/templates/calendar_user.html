@@ -7,16 +7,18 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DASHGUM - Bootstrap Admin Template</title>
+    <title>HealthCC - Main Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
         
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <link href="assets/css/style-calendar.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -37,7 +39,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
+            <a href="index.html" class="logo"><b>HEALTHSCC</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -199,36 +201,31 @@
               	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered">Marcel Newman</h5>
               	  	
-                  
-
+                  <li class="mt">
+                      <a href="index.html">
+                          <h5 class="center">Case 1</h5>
+                      </a>
+                  </li>
 
                   <li class="sub-menu">
-                      <a href="#" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Homepage</span>
+                      <a href="javascript:;" >
+                          <h5 class="center">Case 2</h5>
                       </a>
-                      
                   </li>
-                  
 
                   <li class="sub-menu">
                       <a class="active" href="javascript:;" >
-                          <i class="fa fa-th"></i>
-                          <span>Patients</span>
+                          <h5 class="center">Case 3</h5>
                       </a>
-                      <ul class="sub">
-                          <li class="active"><a  href="basic_table.html">Patients Table</a></li>
-                          
-                      </ul>
                   </li>
-                  
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Settings</span>
+                        <h5 class="center">Case 4</h5>
                       </a>
                       <ul class="sub">
-                          <li><a  href="form_component.html">Components</a></li>
+                          <li><a  href="blank.html">Blank Page</a></li>
+                          <li><a  href="login.html">Login</a></li>
+                          <li><a  href="lock_screen.html">Lock Screen</a></li>
                       </ul>
                   </li>
 
@@ -237,65 +234,86 @@
           </div>
       </aside>
       <!--sidebar end-->
-      
+
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> Patients Table</h3>
-				<div class="row">
-				
-                  
-	                  
-				</div><!-- row -->
-
+          	<h3><i class="fa fa-angle-right"></i> Calendar</h3>
+              <!-- page start-->
               <div class="row mt">
-                  <div class="col-md-12">
-                      <div class="content-panel">
-                          <table class="table table-striped table-advance table-hover">
-                            <h4>Patients List</h4>
-	                  	  	  <hr>
-                              <thead>
-                                <tr>
-                                    <th><i class="fa fa-bullhorn"></i> Names</th>
-                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Descrition</th>
-                                    <th><i class="fa fa-bookmark"></i> Date</th>
-                                    <th><i class=" fa fa-edit"></i> Status</th>
-                                    <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                    <td><a href="basic_table.html#">Lara Croft</a></td>
-                                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                    <td>16/10/12 </td>
-                                    <td><span class="label label-info label-mini">In Progress</span></td>
-                                    <td>
-                                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                    </td>
-                                </tr>
-                              
-                              
-                              
-                              <!-- <tr>
-                                  <td><a href="basic_table.html#">Total Ltd</a></td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>12120.00$ </td>
-                                  <td><span class="label label-warning label-mini">Due</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr> -->
-                              </tbody>
-                          </table>
-                      </div><!-- /content-panel -->
-                  </div><!-- /col-md-12 -->
-              </div><!-- /row -->
+                  <!-- *********************************************************************************
+                  CALENDAR
+                  ************************************************************************************** -->
+                  <aside class="col-lg-9 mt">
+                      <section class="panel">
+                          <div class="panel-body">
+                              <div id="calendar" class="has-toolbar"></div>
+                          </div>
+                      </section>
+                  </aside>
+                  <!-- END CALEDNDAR -->
 
+                  <aside class="col-lg-3 mt">
+                      <div class="form-panel side-form">
+                      <h4 class="mb"><i class="fa fa-angle-right"></i> {{ eventName }}</h4>
+                      <form class="form-horizontal style-form" method="get">
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Default</label>
+                              <div class="col-sm-10">
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Help text</label>
+                              <div class="col-sm-10">
+                                  <input type="text" class="form-control">
+                                  <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
+                              <div class="col-sm-10">
+                                  <input type="text" class="form-control round-form">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Input focus</label>
+                              <div class="col-sm-10">
+                                  <input class="form-control" id="focusedInput" type="text" value="This is focused...">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Disabled</label>
+                              <div class="col-sm-10">
+                                  <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Placeholder</label>
+                              <div class="col-sm-10">
+                                  <input type="text" class="form-control" placeholder="placeholder">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                              <div class="col-sm-10">
+                                  <input type="password" class="form-control" placeholder="">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-lg-2 col-sm-2 control-label">Static control</label>
+                              <div class="col-lg-10">
+                                  <p class="form-control-static">email@example.com</p>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                  </aside>
+              </div>
+              <!-- page end-->
 		</section><! --/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
@@ -303,8 +321,8 @@
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2017 - HealthSCC
-              <a href="basic_table.html#" class="go-top">
+              2014 - Alvarez.is
+              <a href="calendar.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -314,6 +332,8 @@
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>    
     <script src="assets/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="assets/js/jquery.scrollTo.min.js"></script>
@@ -324,12 +344,13 @@
     <script src="assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+	<script src="assets/js/calendar-conf-events.js"></script>    
+  
   <script>
       //custom select box
 
       $(function(){
-          $('select.styled').customSelect();
+          $("select.styled").customSelect();
       });
 
   </script>

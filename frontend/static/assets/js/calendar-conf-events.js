@@ -37,7 +37,8 @@ var Script = function () {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,basicWeek,basicDay'
+            // right: 'month,basicWeek,basicDay'
+            right: ''
         },
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!

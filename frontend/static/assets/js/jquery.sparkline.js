@@ -205,7 +205,7 @@
 (function(document, Math, undefined) { // performance/minified-size optimization
 (function(factory) {
     if(typeof define === 'function' && define.amd) {
-        define(['frontend/static/assets/js/jquery'], factory);
+        define(['jquery'], factory);
     } else if (jQuery && !jQuery.fn.sparkline) {
         factory(jQuery);
     }
