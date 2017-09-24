@@ -36,8 +36,7 @@ def close_db():
 
 
 if __name__ == '__main__':
-    # init_db()
-    args = ('2', 'rice@rice.edu.cn', '123456', 'RICE', 'RICE')
-    crud_db('insert into patient values (?,?,?,?,?)', args)
-    print query_db('select * from patient')
+
+    """Create the basic tables in database"""
+    init_db()
     close_db()

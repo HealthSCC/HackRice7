@@ -7,3 +7,5 @@ create table patient (
   firstname varchar(20),
   lastname varchar(20)
 );
+
+create table

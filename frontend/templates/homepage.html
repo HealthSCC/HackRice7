@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HealthSCC</title>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/navbars.css">
+    <title>HealthSCC</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/navbars.css">-->
+    <link href="{{ url_for('static', filename='assets/css/navbars.css') }}" rel="stylesheet">
+
 
     <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <!--<link href="assets/css/style.css" rel="stylesheet">-->
+    <!--<link href="assets/css/style-responsive.css" rel="stylesheet">-->
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style-responsive.css') }}" rel="stylesheet">
+
+
 
 </head>
 <body>
@@ -15,80 +21,85 @@
 
 <!-- DEFAULT NAVBAR -->
 
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-left"><img src="assets/img/logo.png" ></a>
-      <a class="navbar-brand" href="homepage.html">HealthSCC</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li ><a href="#">Patients</a></li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Doctors <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Dr. John</a></li>
-            <li><a href="#">Dr. Shader</a></li>
-            <li><a href="#">Dr. Moorhouse</a></li>
-            <li><a href="#">Dr. Finnoff</a></li>
-          </ul>
-        </li>
-        <li><a href="http://www.texaschildrens.org"> About TCH <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Donote</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-left"><img src="{{ url_for('static', filename='assets/img/logo.png') }}"></a>
+            <a class="navbar-brand" href="homepage.html">HealthSCC</a>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form> -->
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Sign Up</a></li>
-        <button type="button" class="btn btn-danger" onclick="div_show()">Login</button>
 
-        <!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
-        
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Patients</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Doctors <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Dr. John</a></li>
+                        <li><a href="#">Dr. Shader</a></li>
+                        <li><a href="#">Dr. Moorhouse</a></li>
+                        <li><a href="#">Dr. Finnoff</a></li>
+                    </ul>
+                </li>
+                <li><a href="http://www.texaschildrens.org"> About TCH <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">More <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Donote</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form> -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/signup">Sign Up</a></li>
+                <li><button type="button" class="btn btn-danger" onclick="div_show()">Login</button></li>
+
+                <!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>
 
 
 <div id="login-page" style="visibility: hidden">
-      <div class="container" background = rgba(0,0,0,0)>
-      
-          <form class="form-login" action="index.html">
+    <div class="container" background=rgba(0,0,0,0)>
+
+        <form class="form-login" action="/login" method="post">
             <h2 class="form-login-heading">sign in now</h2>
             <div class="login-wrap">
-                <input type="text" class="form-control" placeholder="User ID" autofocus>
+                <input type="text" class="form-control" placeholder="User ID" autofocus name="useremail">
                 <br>
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" name="password">
                 <label class="checkbox">
-                  <label><input type="checkbox" value="admin" name="check-admin">Login as a Doctor</label>
-                  <span class="pull-right">
+                    <label><input type="checkbox" value="admin" name="check-admin">Login as a Doctor</label>
+                    <span class="pull-right">
                         <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
     
                     </span>
                 </label>
-                <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+                <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN
+                    IN
+                </button>
                 <hr>
 
 
@@ -98,47 +109,52 @@
                         Create an account
                     </a>
                 </div>
-    
+
             </div>
-    
-              <!-- Modal -->
-              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <h4 class="modal-title">Forgot Password ?</h4>
-                          </div>
-                          <div class="modal-body">
-                              <p>Enter your e-mail address below to reset your password.</p>
-                              <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-    
-                          </div>
-                          <div class="modal-footer">
-                              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                              <button class="btn btn-theme" type="button">Submit</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!-- modal -->
-    
-          </form>     
-      
-      </div>
+
+            <!-- Modal -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+                 class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Forgot Password ?</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Enter your e-mail address below to reset your password.</p>
+                            <input type="text" name="email" placeholder="Email" autocomplete="off"
+                                   class="form-control placeholder-no-fix">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                            <button class="btn btn-theme" type="button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal -->
+
+        </form>
+
     </div>
+</div>
 
 
-<script src="assets/js/signin.js"></script>
+<!--<script src="assets/js/signin.js"></script>-->
+<script src="{{ url_for('static', filename='assets/js/signin.js') }}"></script>
+
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!--BACKSTRETCH-->
-    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
-    <script>
-        $.backstretch("assets/img/children.jpg", {speed: 500});
-    </script>
+<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+<!--#<script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>-->
+<script src="{{ url_for('static', filename='assets/js/jquery.backstretch.min.js') }}"></script>
+<script>
+    $.backstretch("{{ url_for('static', filename='assets/img/children.jpg') }}", {speed: 500});
+</script>
 
 </body>
 </html>
