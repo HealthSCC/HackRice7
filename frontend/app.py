@@ -83,10 +83,13 @@ def signup():
             return render_template("error.html", info='Password Not Match')
 
         db = get_db()
-        current_id = query_db(db, 'SELECT id FROM patient ORDER BY id DESC LIMIT 1', one=True)[0]
-        args = (current_id + 1, user_email, password, first_name, last_name)
+        values = query_db(db, 'SELECT pid FROM patient ORDER BY pid DESC LIMIT 1', one=True)
+        current_id = 1
+        if values is not None:
+            current_id = values[0] + 1
+        args = (current_id, user_email, password, first_name, last_name)
         crud_db(db, 'INSERT INTO patient VALUES (?,?,?,?,?)', args)
-        return redirect(url_for('signup'))
+        return redirect(url_for('home'))
 
     """GET Method"""
     if 'user' in session:
@@ -109,7 +112,8 @@ def login():
         if query_result is None:
             return render_template("error.html", info="Incorrect Username or PassWord")
         else:
-            session['user'] = user_email
+            session['id'], session['useremail'] = int(query_result[0]), user_email
+            session['firstname'], session['lastname'] = str(query_result[3]), str(query_result[4])
             return redirect(url_for('calendar'))
 
     return render_template('login.html')
@@ -117,24 +121,71 @@ def login():
 
 @app.route('/calendar')
 def calendar():
-    events = {'title': 'Click for Google',
-              'start': 'new Date(y, m, 28)',
-              'end': 'new Date(y, m, 29)',
-              'url': 'http://google.com/'
-              }
+    if 'useremail' in session:
+        args = (session['id'],)
+        values = query_db(get_db(),
+                          'select description from event where pid = ? and did is not \'NULL\' and julianday(startdate)-julianday(\'now\') < 10 order by startdate limit 3',
+                          args)
+        description = []
+        for value in values:
+            print value
+            print description.append(str(value[0]))
+        return render_template('calendar_user.html', firstname=session['firstname'], lastname=session['lastname'],
+                               description=description)
+    else:
+        return render_template('calendar_user.html', firstname=None, lastname=None)
 
-    return render_template('calendar.html', events=events)
+
+@app.route('/_insert_event', methods=['POST'])
+def insert_event():
+    if request.method == 'POST':
+        category_select = request.form.get('category_select')
+        description = request.form.get('description')
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+        time = request.form.get('time')
+        args = (session['id'], '2', start_date, end_date, category_select, time, description)
+        crud_db(get_db(), 'INSERT INTO event VALUES (?,?,?,?,?,?,?)', args)
+        return redirect(url_for('calendar'))
+    else:
+        return render_template("error.html")
 
 
 @app.route('/_get_events')
 def get_events():
-    events = [{'title': 'Click for Google',
-               'url': 'http://google.com/'
-               },
-              {'title': 'Click for Facebook',
-               'url': 'http://facebook.com/'
-               }]
-    return jsonify(events)
+    args = (session['id'],)
+    events_query = query_db(get_db(), 'SELECT * FROM event WHERE pid = ?', args, one=False)
+    events_return = []
+    for event in events_query:
+
+        source = 'user'
+        if str(event[1]) != 'NULL':
+            source = 'doctor'
+
+        sy, sm, sd = str(event[2]).split("-")
+        ey, em, ed = str(event[3]).split("-")
+        each_dict = {
+            'title': str(event[6]),
+            'starty': sy,
+            'startm': sm,
+            'startd': sd,
+            'endy': ey,
+            'endm': em,
+            'endd': ed,
+            'time': int(event[5]),
+            'url': str(event[4]),
+            'source': source
+        }
+        events_return.append(each_dict)
+
+    # events = [{'title': 'Click for Google',
+    #            'url': 'http://google.com/'
+    #            },
+    #           {'title': 'Click for Facebook',
+    #            'url': 'http://facebook.com/'
+    #            }]
+
+    return jsonify(events_return)
 
 
 if __name__ == '__main__':
