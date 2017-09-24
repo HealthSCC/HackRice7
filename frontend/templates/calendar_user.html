@@ -256,73 +256,66 @@
                   </aside>
                   <!-- END CALEDNDAR -->
 
-                  <aside class="col-lg-3 mt">
+                  <aside class="col-lg-3 side-table">
                       <div class="form-panel side-form">
-                      <h4 class="mb"><i class="fa fa-angle-right"></i> {{ eventName }}</h4>
+                      <h3 class="mb"><i class="fa fa-angle-right"></i> Detail</h3>
                       <form class="form-horizontal style-form" method="get">
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Default</label>
-                              <div class="col-sm-10">
-                                  <input type="text" class="form-control">
+                              <label class="col-sm-2 col-sm-2 control-label">Category</label>
+                              <br><br>
+                              <div class="col-sm-12">
+                                  <select class="form-control">
+                                    <option>Symptome</option>
+                                    <option>Medicine</option>
+                                    <option>Record</option>
+                                    <option>Appointment</option>
+                                    <option>Physical Examination</option>
+                                  </select>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Help text</label>
-                              <div class="col-sm-10">
-                                  <input type="text" class="form-control">
-                                  <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                              <label class="col-sm-12 col-sm-12 control-label">Description</label>
+                              <br><br>
+                              <div class="col-sm-12">
+                                  <input type="text" class="form-control" value={{description}} >
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
-                              <div class="col-sm-10">
-                                  <input type="text" class="form-control round-form">
+                              <label class="col-sm-12 col-sm-12 control-label">Start Date</label>
+                              <br><br>
+                              <div class="col-sm-12">
+                                  <input type="text" class="form-control" value={{start_date}} >
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Input focus</label>
-                              <div class="col-sm-10">
-                                  <input class="form-control" id="focusedInput" type="text" value="This is focused...">
+                              <label class="col-sm-12 col-sm-12 control-label">End Date</label>
+                              <br><br>
+                              <div class="col-sm-12">
+                                  <input type="text" class="form-control" value={{end_date}} >
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Disabled</label>
-                              <div class="col-sm-10">
-                                  <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
+                              <label class="col-sm-12 col-sm-12 control-label">Time</label>
+                              <br><br>
+                              <div class="col-sm-12">
+                                  <input type="text" class="form-control" value={{time}} >
                               </div>
                           </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Placeholder</label>
-                              <div class="col-sm-10">
-                                  <input type="text" class="form-control" placeholder="placeholder">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Password</label>
-                              <div class="col-sm-10">
-                                  <input type="password" class="form-control" placeholder="">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-lg-2 col-sm-2 control-label">Static control</label>
-                              <div class="col-lg-10">
-                                  <p class="form-control-static">email@example.com</p>
-                              </div>
-                          </div>
+                          <button class="btn btn-theme btn-block" href="index.html" type="submit">Update</button>
                       </form>
                   </div>
                   </aside>
               </div>
               <!-- page end-->
-		</section><! --/wrapper -->
+		</section><!--/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2014 - Alvarez.is
-              <a href="calendar.html#" class="go-top">
+              Health Self-care Calendar
+              <a href="calendar_user.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
