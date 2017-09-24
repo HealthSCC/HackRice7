@@ -37,9 +37,9 @@ def close_db():
 
 if __name__ == '__main__':
     """Create the basic tables in database"""
-    # init_db()
+    init_db()
     # args = (1, 'NULL', '2017-09-27', '2017-09-26', 'Medicine', 12, 'Good')
     # crud_db('INSERT INTO event VALUES (?,?,?,?,?,?,?)', args)
     # args = (2, 'RICE', 'UNIVERSITY')
     # crud_db('INSERT INTO doctor VALUES(?,?,?)', args)
-    # close_db()
+    close_db()

@@ -71,6 +71,7 @@ def signup():
     error = None
     """POST Method"""
     if request.method == 'POST':
+
         user_email = request.form.get('useremail', None)
         password = request.form.get('password', None)
         re_password = request.form.get('re_password', None)
@@ -82,13 +83,16 @@ def signup():
         if password != re_password:
             return render_template("error.html", info='Password Not Match')
 
+        table, table_id = ('patient', 'pid') if request.form.get('check-doctor') is None else ('doctor', 'did')
         db = get_db()
-        values = query_db(db, 'SELECT pid FROM patient ORDER BY pid DESC LIMIT 1', one=True)
+        values = query_db(db, 'SELECT {} FROM {} ORDER BY {} DESC LIMIT 1'.format(table_id, table, table_id), one=True)
         current_id = 1
         if values is not None:
+            print values
             current_id = values[0] + 1
         args = (current_id, user_email, password, first_name, last_name)
-        crud_db(db, 'INSERT INTO patient VALUES (?,?,?,?,?)', args)
+        crud_db(db, 'INSERT INTO {} VALUES (?,?,?,?,?)'.format(table), args)
+
         return redirect(url_for('home'))
 
     """GET Method"""
@@ -100,20 +104,25 @@ def signup():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    error = None
     if request.method == 'POST':
-        user_email = request.form.get('useremail')
+        email = request.form.get('useremail')
         password = request.form.get('password')
 
-        if user_email is None or password is None:
+        if email is None or password is None:
             return render_template("error.html", info="Incomplete Input")
-        query_result = query_db(get_db(), 'SELECT * FROM patient WHERE useremail = ? and password = ?',
-                                (user_email, password), one=True)
+        table, email_name = ('patient', 'useremail') if request.form.get('check-doctor') is None else (
+            'doctor', 'doctoremail')
+
+        print email, password
+        query_result = query_db(get_db(), 'SELECT * FROM {} WHERE {} = ? and password = ?'.format(table, email_name),
+                                (email, password), one=True)
+        print query_result
         if query_result is None:
             return render_template("error.html", info="Incorrect Username or PassWord")
         else:
-            session['id'], session['useremail'] = int(query_result[0]), user_email
+            session['id'], session['useremail'] = int(query_result[0]), email
             session['firstname'], session['lastname'] = str(query_result[3]), str(query_result[4])
+            session['type'] = table
             return redirect(url_for('calendar'))
 
     return render_template('login.html')
@@ -121,19 +130,38 @@ def login():
 
 @app.route('/calendar')
 def calendar():
-    if 'useremail' in session:
-        args = (session['id'],)
-        values = query_db(get_db(),
-                          'select description from event where pid = ? and did is not \'NULL\' and julianday(startdate)-julianday(\'now\') < 10 order by startdate limit 3',
-                          args)
-        description = []
-        for value in values:
-            print value
-            print description.append(str(value[0]))
-        return render_template('calendar_user.html', firstname=session['firstname'], lastname=session['lastname'],
-                               description=description)
+    if 'type' in session:
+        if session['type'] == 'patient':
+            args = (session['id'],)
+            values = query_db(get_db(),
+                              'select advise from suggestion where pid = ? and julianday(worstdate)-julianday(\'now\') < 5 order by bestdate limit 3',
+                              args)
+            descriptions = ""
+            for i in range(0, len(values)):
+                descriptions += ("* " + (str(values[i][0])) + " ")
+            print descriptions
+            return render_template('calendar_user.html', firstname=session['firstname'], lastname=session['lastname'],
+                                   descriptions=descriptions)
+        else:
+            values = query_db(get_db(),
+                              'select * from event')
+            number_of_patient = len(values)
+            patients = []
+            for value in values:
+                each_dict = {
+                    'pid': int(value[0]),
+                    'startdate': str(value[1])[5:],
+                    'enddate': str(value[2])[5:],
+                    'category': str(value[3]),
+                    'description': str(value[5])
+                }
+                print each_dict
+                patients.append(each_dict)
+            return render_template('calendar_doctor.html', firstname=session['firstname'], lastname=session['lastname'],
+                                   number_of_patient=number_of_patient,
+                                   patients=patients)
     else:
-        return render_template('calendar_user.html', firstname=None, lastname=None)
+        return render_template('error.html', firstname=None, lastname=None)
 
 
 @app.route('/_insert_event', methods=['POST'])
@@ -144,47 +172,50 @@ def insert_event():
         start_date = request.form.get('start_date')
         end_date = request.form.get('end_date')
         time = request.form.get('time')
-        args = (session['id'], '2', start_date, end_date, category_select, time, description)
-        crud_db(get_db(), 'INSERT INTO event VALUES (?,?,?,?,?,?,?)', args)
+        args = (session['id'], start_date, end_date, category_select, time, description)
+        crud_db(get_db(), 'INSERT INTO event VALUES (?,?,?,?,?,?)', args)
         return redirect(url_for('calendar'))
     else:
         return render_template("error.html")
 
 
+@app.route('/_insert_suggestion', methods=['POST'])
+def insert_suggestion():
+    if request.method == 'POST' and session['type'] == 'doctor':
+        print "yes"
+        advise = request.form.get('advise', None)
+        best_date = request.form.get('best_date', None)
+        worst_date = request.form.get('worst_date', None)
+        pid = request.form.get('pid', None)
+        args = (pid, session['id'], best_date, worst_date, advise)
+        crud_db(get_db(), 'INSERT INTO suggestion VALUES (?,?,?,?,?)', args)
+        return redirect(url_for('calendar'))
+
+    return render_template("error.html")
+
+
 @app.route('/_get_events')
 def get_events():
-    args = (session['id'],)
-    events_query = query_db(get_db(), 'SELECT * FROM event WHERE pid = ?', args, one=False)
-    events_return = []
-    for event in events_query:
-
-        source = 'user'
-        if str(event[1]) != 'NULL':
-            source = 'doctor'
-
-        sy, sm, sd = str(event[2]).split("-")
-        ey, em, ed = str(event[3]).split("-")
-        each_dict = {
-            'title': str(event[6]),
-            'starty': sy,
-            'startm': sm,
-            'startd': sd,
-            'endy': ey,
-            'endm': em,
-            'endd': ed,
-            'time': int(event[5]),
-            'url': str(event[4]),
-            'source': source
-        }
-        events_return.append(each_dict)
-
-    # events = [{'title': 'Click for Google',
-    #            'url': 'http://google.com/'
-    #            },
-    #           {'title': 'Click for Facebook',
-    #            'url': 'http://facebook.com/'
-    #            }]
-
+    if 'type' in session:
+        events_return = []
+        if session['type'] == 'patient':
+            args = (session['id'],)
+            events_query = query_db(get_db(), 'SELECT * FROM event WHERE pid = ?', args, one=False)
+            for event in events_query:
+                sy, sm, sd = str(event[1]).split("-")
+                ey, em, ed = str(event[2]).split("-")
+                each_dict = {
+                    'title': str(event[5]),
+                    'starty': sy,
+                    'startm': sm,
+                    'startd': sd,
+                    'endy': ey,
+                    'endm': em,
+                    'endd': ed,
+                    'time': int(event[4]),
+                    'url': str(event[3]),
+                }
+                events_return.append(each_dict)
     return jsonify(events_return)
 
 
