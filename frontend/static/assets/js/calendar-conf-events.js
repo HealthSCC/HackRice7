@@ -36,17 +36,14 @@ var Script = function () {
     var events = []
     $.ajaxSettings.async = false;
     $.getJSON($SCRIPT_ROOT + '/_get_events', {}, function (data) {
+        console.log(data.length);
         for (var i = 0; i < data.length; i++) {
-            var bg = "#00FF80";
-            if (data[i].source != 'user') {
-                bg = "#FF6666";
-            }
             var dict = {
                 'title': data[i].title,
                 'start': new Date(data[i].starty, data[i].startm - 1, data[i].startd, data[i].time),
                 'end': new Date(data[i].endy, data[i].endm - 1, data[i].endd),
-                'backgroundColor': bg
             }
+            console.log(dict.title);
             events.push(dict);
         }
     });

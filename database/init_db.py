@@ -1,8 +1,7 @@
 import sqlite3
 
 '''
-conn = sq
-lite3.connect('HACKRICE.db')
+conn = sqlite3.connect('HACKRICE.db')
 cursor = conn.cursor()
 cursor.execute('CREATE TABLE test (id varchar(20) PRIMARY KEY, pw varchar(20))')
 cursor.execute('INSERT INTO test (id, pw) VALUES (\'roy7wt\', \'123456\')')
